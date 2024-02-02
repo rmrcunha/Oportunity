@@ -1,8 +1,22 @@
 package main
 
-import "github.com/rmrcunha/Oportunity.git/router"
+import (
+	"github.com/rmrcunha/Oportunity.git/config"
+	"github.com/rmrcunha/Oportunity.git/router"
+)
+
+var (
+	logger config.Logger
+)
 
 func main() {
+	logger = *config.GetLogger("main")
+	//Initialize Configs
+	err := config.Init()
+	if err != nil {
+		logger.Errorf("config initialization error: %v", err)
+		return
+	}
 	//initialize router
 	router.Initialize()
 }
